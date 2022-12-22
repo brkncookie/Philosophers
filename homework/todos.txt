@@ -1,0 +1,10 @@
+Knowledge:
+	-learn about threading and how to implement it in c.
+Parser/Thread Initiliazer:
+	-parse the given arguments and initiliaze the structs with the appropriate functions and values.
+Thread Routine:
+	-fluctuate between the eat and thinking state based on whether the number is pair or not.
+Threads Watcher:
+	-create a thread that has the sole purpose of monitoring if any of the other threads are dead or have eaten N times.
+
+
