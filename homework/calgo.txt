@@ -1,13 +1,12 @@
 Parser/Thread Initiliazer:
 	-fill the `t_data` struct with the given arguments.
 	-create an array of `t_philo` struct based on the given number of philos given.
-	-while doing that initiliaze an index for every `t_philo` struct and set the other ints to 0, and `*data` to point to the t_data struct.
-	-initiliaze the wanted N number of mutexes which will represent the forks.
+	-initiliaze the wanted N number of mutexes which will represent the forks, and another mutex for the print.
+	-while doing that initiliaze an index for every `t_philo` struct, assign the initiliazed mutex pointers and `*data` to point to the t_data struct.
 	-start all of the threads and assign a function as their routine.
 Thread Routine:
 	-create simple if cases inside an infinite loop that prioritize the philo with odd index number to eat 1st and the ones with an even index number to 	 think 1st.
-	-while doing that you'll print the timpestamp and the current state of the philo and also change its state in the t_philo struct,
-	 and most importantly lock the mutexes of the current philo and the other philo next to it and also lock a print mutex.
+	-while doing that you'll print the timpestamp and the current state of the philo and most importantly lock the mutexes of the current philo and the 	other philo next to it and also lock a print mutex.
 Thread Watcher:
 	-create a joined thread not detached like the other threads, that has the sole purpose for checking if a philo has died so as to inform us and exit
 	the program.
