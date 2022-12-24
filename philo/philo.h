@@ -6,7 +6,7 @@
 /*   By: mnadir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 12:32:13 by mnadir            #+#    #+#             */
-/*   Updated: 2022/12/23 15:39:44 by mnadir           ###   ########.fr       */
+/*   Updated: 2022/12/24 12:20:17 by mnadir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PHILO_H
@@ -26,13 +26,14 @@ typedef struct s_data
 	int				phn;
 	int				ate;
 	int				m2e;
+	long			ss;
 }	t_data;
 typedef struct s_philo
 {
 	pthread_t		philo;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	*print;
-	int				tlm;
+	long			tlm;
 	int				inx;
 	t_data			*data;
 }	t_philo;
@@ -44,4 +45,5 @@ void	*ft_calloc(size_t count, size_t size);
 t_philo	*parassign(int argc, char **argv);
 void	*watcher(void	*parm);
 void	*philostat(void *parm);
+long	currenttime(void);
 #endif

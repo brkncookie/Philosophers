@@ -1,0 +1,3 @@
+Deadlocks and Race Conditions:
+	https://learn.microsoft.com/en-us/troubleshoot/developer/visualstudio/visual-basic/language-compilers/race-conditions-deadlocks
+	https://docs.oracle.com/cd/E19205-01/820-0619/geokj/index.html

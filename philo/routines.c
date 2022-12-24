@@ -6,55 +6,61 @@
 /*   By: mnadir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:14:55 by mnadir            #+#    #+#             */
-/*   Updated: 2022/12/23 15:40:13 by mnadir           ###   ########.fr       */
+/*   Updated: 2022/12/24 15:16:15 by mnadir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
 
-void	locknprint(t_philo *philo, char *str)
-{
-	pthread_mutex_lock(philo->print);
-	printf("%d %s\n", philo->inx, str);
-	pthread_mutex_unlock(philo->print);
-}
-
-int	currenttime(void)
+long	currenttime(void)
 {	
 	struct timeval	time;		
 
 	gettimeofday(&time, NULL);
-	return (time.tv_usec);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+void	locknprint(t_philo *philo, char *str, int dead)
+{
+	pthread_mutex_lock(philo->print);
+	printf("%ld %d %s\n", currenttime() - philo->data->ss, philo->inx, str);
+	if (dead)
+		return ;
+	pthread_mutex_unlock(philo->print);
+}
+
+void	mssleep(long time_ms)
+{
+	long	time;
+
+	time = currenttime();
+	while (currenttime() - time < time_ms)
+		usleep(time_ms / 10);
 }
 
 void	*philostat(void *parm)
 {
-	t_philo	*philo;
-	int		first;
+	t_philo		*philo;
 
 	philo = (t_philo *)parm;
-	first = 0;
 	while (1)
 	{
-		if (philo->inx % 2)
-			first = 1;
-		if (first)
-		{
-			pthread_mutex_lock(&(philo->fork[philo->inx]));
-			pthread_mutex_lock(&(philo->fork[philo->inx + 1 % \
-						philo->data->phn]));
-			locknprint(philo, "has taken a fork");
-			locknprint(philo, "is eating");
-			usleep(philo->data->t2e * 1000);
-			philo->tlm = currenttime();
-			philo->data->ate++;
-			pthread_mutex_unlock(&(philo->fork[philo->inx]));
-			pthread_mutex_unlock(&(philo->fork[philo->inx + 1 % \
-						philo->data->phn]));
-			locknprint(philo, "is sleeping");
-			usleep(philo->data->t2s * 1000);
-		}
-		locknprint(philo, "is thinking");
-		first = 1;
+		if (!(philo->inx % 2))
+			usleep(100);
+		pthread_mutex_lock(&(philo->fork[philo->inx]));
+		locknprint(philo, "has taken a fork", 0);
+		pthread_mutex_lock(&(philo->fork[philo->inx + 1 % \
+					philo->data->phn]));
+		locknprint(philo, "has taken a fork", 0);
+		locknprint(philo, "is eating", 0);
+		philo->tlm = currenttime();
+		mssleep(philo->data->t2e);
+		philo->data->ate++;
+		pthread_mutex_unlock(&(philo->fork[philo->inx + 1 % \
+					philo->data->phn]));
+		pthread_mutex_unlock(&(philo->fork[philo->inx]));
+		locknprint(philo, "is sleeping", 0);
+		mssleep(philo->data->t2s);
+		locknprint(philo, "is thinking", 0);
 	}
 	return (NULL);
 }
@@ -65,15 +71,15 @@ void	*watcher(void	*parm)
 	int		inx;
 
 	philo = (t_philo *)parm;
-	while(1)
+	while (1)
 	{
-		if(philo->data->m2e != -1 && (philo->data->m2e == philo->data->ate))
-			return (NULL);
+		if (philo->data->m2e != -1 && (philo->data->m2e == philo->data->ate))
+			return (pthread_mutex_lock(philo->print), NULL);
 		inx = 0;
 		while (inx < philo->data->phn)
 		{
-			if(currenttime() - philo[inx].tlm > (philo->data->t2d * 1000))
-				return (locknprint(philo, "is dead"), NULL);
+			if (currenttime() - philo[inx].tlm > philo->data->t2d)
+				return (locknprint(philo, "is dead", 1), NULL);
 			inx++;
 		}
 	}
