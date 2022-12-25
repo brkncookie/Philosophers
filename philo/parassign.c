@@ -6,7 +6,7 @@
 /*   By: mnadir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 10:13:21 by mnadir            #+#    #+#             */
-/*   Updated: 2022/12/24 15:07:12 by mnadir           ###   ########.fr       */
+/*   Updated: 2022/12/25 08:30:20 by mnadir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
@@ -40,12 +40,32 @@ t_data	*data_init(int argc, char **argv)
 	return (data);
 }
 
+void	threads_create(t_philo *philo)
+{
+	int	inx;
+
+	inx = 1;
+	while (inx < philo->data->phn)
+	{
+		pthread_create(&(philo[inx].philo), NULL, philostat, &philo[inx]);
+		pthread_detach(philo[inx].philo);
+		inx += 2;
+	}
+	usleep(100);
+	inx = 0;
+	while (inx < philo->data->phn)
+	{
+		pthread_create(&(philo[inx].philo), NULL, philostat, &philo[inx]);
+		pthread_detach(philo[inx].philo);
+		inx += 2;
+	}
+}
+
 t_philo	*philo_init(t_data *data, int inx)
 {
 	t_philo			*philo;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	*print;
-	long			tlm;
 
 	fork = ft_calloc(data->phn, sizeof(*fork));
 	print = ft_calloc(1, sizeof(*print));
@@ -58,12 +78,11 @@ t_philo	*philo_init(t_data *data, int inx)
 	if (!philo)
 		return (free(fork), free(print), NULL);
 	inx = 0;
-	tlm = currenttime();
 	while (inx < data->phn)
 	{
 		philo[inx].fork = fork;
 		philo[inx].print = print;
-		philo[inx].tlm = tlm;
+		philo[inx].tlm = currenttime();
 		philo[inx].inx = inx;
 		philo[inx].data = data;
 		inx++;
@@ -75,7 +94,6 @@ t_philo	*parassign(int argc, char **argv)
 {
 	t_data	*data;
 	t_philo	*philo;
-	int		inx;
 
 	if (is_vint(argv[1]) < 0 || is_vint(argv[2]) < 0 || is_vint(argv[3]) < 0 \
 		|| is_vint(argv[4]) < 0 || (argc == 6 && is_vint(argv[5]) < 0))
@@ -87,12 +105,6 @@ t_philo	*parassign(int argc, char **argv)
 	if (!philo)
 		return (free(data), NULL);
 	data->ss = currenttime();
-	inx = 0;
-	while (inx < data->phn)
-	{
-		pthread_create(&(philo[inx].philo), NULL, philostat, &philo[inx]);
-		pthread_detach(philo[inx].philo);
-		inx++;
-	}
+	threads_create(philo);
 	return (philo);
 }

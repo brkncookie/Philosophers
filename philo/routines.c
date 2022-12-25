@@ -6,7 +6,7 @@
 /*   By: mnadir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:14:55 by mnadir            #+#    #+#             */
-/*   Updated: 2022/12/24 15:16:15 by mnadir           ###   ########.fr       */
+/*   Updated: 2022/12/25 09:02:45 by mnadir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
@@ -44,8 +44,6 @@ void	*philostat(void *parm)
 	philo = (t_philo *)parm;
 	while (1)
 	{
-		if (!(philo->inx % 2))
-			usleep(100);
 		pthread_mutex_lock(&(philo->fork[philo->inx]));
 		locknprint(philo, "has taken a fork", 0);
 		pthread_mutex_lock(&(philo->fork[philo->inx + 1 % \
