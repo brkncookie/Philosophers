@@ -6,7 +6,7 @@
 /*   By: mnadir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:14:55 by mnadir            #+#    #+#             */
-/*   Updated: 2022/12/25 09:02:45 by mnadir           ###   ########.fr       */
+/*   Updated: 2022/12/25 11:19:33 by mnadir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
@@ -46,14 +46,14 @@ void	*philostat(void *parm)
 	{
 		pthread_mutex_lock(&(philo->fork[philo->inx]));
 		locknprint(philo, "has taken a fork", 0);
-		pthread_mutex_lock(&(philo->fork[philo->inx + 1 % \
+		pthread_mutex_lock(&(philo->fork[(philo->inx + 1) % \
 					philo->data->phn]));
 		locknprint(philo, "has taken a fork", 0);
 		locknprint(philo, "is eating", 0);
 		philo->tlm = currenttime();
 		mssleep(philo->data->t2e);
 		philo->data->ate++;
-		pthread_mutex_unlock(&(philo->fork[philo->inx + 1 % \
+		pthread_mutex_unlock(&(philo->fork[(philo->inx + 1) % \
 					philo->data->phn]));
 		pthread_mutex_unlock(&(philo->fork[philo->inx]));
 		locknprint(philo, "is sleeping", 0);
