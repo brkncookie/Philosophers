@@ -6,7 +6,7 @@
 /*   By: mnadir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 10:13:21 by mnadir            #+#    #+#             */
-/*   Updated: 2022/12/25 11:16:29 by mnadir           ###   ########.fr       */
+/*   Updated: 2022/12/26 11:01:42 by mnadir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
@@ -76,7 +76,7 @@ t_philo	*philo_init(t_data *data, int inx)
 	pthread_mutex_init(print, NULL);
 	philo = ft_calloc(data->phn, sizeof(*philo));
 	if (!philo)
-		return (free(fork), free(print), NULL);
+		return (mutextroy(data, print, fork), NULL);
 	inx = 0;
 	while (inx < data->phn)
 	{

@@ -6,7 +6,7 @@
 /*   By: mnadir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 12:32:13 by mnadir            #+#    #+#             */
-/*   Updated: 2022/12/24 12:20:17 by mnadir           ###   ########.fr       */
+/*   Updated: 2022/12/26 10:58:47 by mnadir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PHILO_H
@@ -43,7 +43,11 @@ int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 t_philo	*parassign(int argc, char **argv);
-void	*watcher(void	*parm);
 void	*philostat(void *parm);
+void	*watcher(void	*parm);
 long	currenttime(void);
+void	mutextroy(t_data *data, pthread_mutex_t *print, pthread_mutex_t *fork);
+void	mssleep(long time_ms);
+long	currenttime(void);
+void	locknprint(t_philo *philo, char *str, int dead);
 #endif

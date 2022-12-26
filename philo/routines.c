@@ -6,36 +6,10 @@
 /*   By: mnadir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:14:55 by mnadir            #+#    #+#             */
-/*   Updated: 2022/12/25 11:19:33 by mnadir           ###   ########.fr       */
+/*   Updated: 2022/12/26 10:57:38 by mnadir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
-
-long	currenttime(void)
-{	
-	struct timeval	time;		
-
-	gettimeofday(&time, NULL);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
-}
-
-void	locknprint(t_philo *philo, char *str, int dead)
-{
-	pthread_mutex_lock(philo->print);
-	printf("%ld %d %s\n", currenttime() - philo->data->ss, philo->inx, str);
-	if (dead)
-		return ;
-	pthread_mutex_unlock(philo->print);
-}
-
-void	mssleep(long time_ms)
-{
-	long	time;
-
-	time = currenttime();
-	while (currenttime() - time < time_ms)
-		usleep(time_ms / 10);
-}
 
 void	*philostat(void *parm)
 {
@@ -77,7 +51,7 @@ void	*watcher(void	*parm)
 		while (inx < philo->data->phn)
 		{
 			if (currenttime() - philo[inx].tlm > philo->data->t2d)
-				return (locknprint(philo, "is dead", 1), NULL);
+				return (locknprint(philo, "died", 1), NULL);
 			inx++;
 		}
 	}
