@@ -1,6 +1,6 @@
 Parser/Thread Initiliazer:
 	-fill the `t_data` struct with the given arguments.
-	-create an array of `t_philo` struct based on the given number of philos given.
+	-ceate an array of `t_philo` struct based on the given number of philos given.
 	-initiliaze the wanted N number of mutexes which will represent the forks, and another mutex for the print.
 	-while doing that initiliaze an index for every `t_philo` struct, assign the initiliazed mutex pointers and `*data` to point to the t_data struct.
 	-start all of the threads and assign a function as their routine.

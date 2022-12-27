@@ -1,0 +1,15 @@
+Parser/Child Process Initiliazer:
+	-fill the `t_data` struct with the given arguments.
+	-create a single `t_philo` struct as every child process will have a copy of it.
+	-create a sem with a value the same as the number of philos, a sem for the print function with a value of 1 and a sem with a 0 to be incremented
+	 with sem_post each time a philo ate to check it against the requested time each philo should eat.
+	-set the tlm memmber to the return value of currenttime() and the data pointer to point to the `t_data` struct we intiliazed earlier.
+	-spawn the child processes with fork.
+Thread Watcher (for every child process);
+	-every child process will have a thread that checks if the child process exceeded the t2d variable and if so call exit().
+Thread Watcher (for the parent process);
+	-the parent process will use a thread which will be calling sem_wait on the sem that was initiliazed with 0 and each time sem_wait returns
+	 it will increment a variable and check it against the wanted amount of times each philo should eat.
+The Parent Process:
+	-simply wait for a child process to die (call exit()) with waitpid(-1, NULL, 0) which will block the parent process and exit when the waitpid return
+	

@@ -1,0 +1,4 @@
+Semaphores:
+	https://docs.oracle.com/cd/E19683-01/806-6867/6jfpgdcnj/index.html
+	https://www.geeksforgeeks.org/use-posix-semaphores-c/
+
