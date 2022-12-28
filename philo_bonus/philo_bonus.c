@@ -6,7 +6,7 @@
 /*   By: mnadir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 15:31:07 by mnadir            #+#    #+#             */
-/*   Updated: 2022/12/27 15:49:30 by mnadir           ###   ########.fr       */
+/*   Updated: 2022/12/28 12:23:57 by mnadir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ int	main(int argc, char	**argv)
 	pthread_create(&thread, NULL, enough_eating, philo);
 	pthread_detach(thread);
 	waitpid(-1, NULL, 0);
+	killmychilds(philo->pid, philo);
 	return (0);
 }

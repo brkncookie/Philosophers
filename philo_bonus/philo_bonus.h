@@ -6,7 +6,7 @@
 /*   By: mnadir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 14:32:55 by mnadir            #+#    #+#             */
-/*   Updated: 2022/12/27 15:49:49 by mnadir           ###   ########.fr       */
+/*   Updated: 2022/12/28 12:22:01 by mnadir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PHILO_BONUS_H
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <semaphore.h>
+# include <signal.h>
 
 typedef struct s_data
 {
@@ -30,7 +31,7 @@ typedef struct s_data
 }	t_data;
 typedef struct s_philo
 {
-	pid_t			pid;
+	pid_t			*pid;
 	int				inx;
 	sem_t			*fork;
 	sem_t			*print;
@@ -49,4 +50,5 @@ long	currenttime(void);
 void	locknprint(t_philo *philo, char *str, int dead);
 void	child_routine(t_philo *philo);
 void	*enough_eating(void *parm);
+void	killmychilds(pid_t *pid, t_philo *philo);
 #endif

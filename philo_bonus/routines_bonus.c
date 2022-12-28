@@ -6,7 +6,7 @@
 /*   By: mnadir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:14:55 by mnadir            #+#    #+#             */
-/*   Updated: 2022/12/27 15:50:00 by mnadir           ###   ########.fr       */
+/*   Updated: 2022/12/28 14:09:59 by mnadir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo_bonus.h"
@@ -14,14 +14,12 @@
 void	*child_watcher(void	*parm)
 {
 	t_philo	*philo;
-	int		inx;
 
 	philo = (t_philo *)parm;
 	while (1)
 	{
 		if (currenttime() - philo->tlm > philo->data->t2d)
-			return (locknprint(philo, "died", 1), exit(0), NULL);
-		inx++;
+			return (locknprint(philo, "died", 1), NULL);
 	}
 	return (NULL);
 }
@@ -57,12 +55,19 @@ void	*enough_eating(void *parm)
 
 	philo = (t_philo *)parm;
 	count = 0;
-	while (1)
+	if (philo->data->m2e != -1)
 	{
-		sem_wait(philo->ate);
-		count++;
-		if (count == philo->data->m2e)
-			exit(0);
+		while (1)
+		{
+			sem_wait(philo->ate);
+			count++;
+			if (count == philo->data->m2e)
+			{
+				sem_wait(philo->print);
+				killmychilds(philo->pid, philo);
+				exit(0);
+			}
+		}
 	}
 	return (philo);
 }
