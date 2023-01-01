@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_bonus.c                                      :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnadir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/27 14:32:55 by mnadir            #+#    #+#             */
-/*   Updated: 2022/12/28 12:22:01 by mnadir           ###   ########.fr       */
+/*   Created: 2023/01/01 12:10:34 by mnadir            #+#    #+#             */
+/*   Updated: 2023/01/01 12:10:45 by mnadir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PHILO_BONUS_H
@@ -51,4 +51,5 @@ void	locknprint(t_philo *philo, char *str, int dead);
 void	child_routine(t_philo *philo);
 void	*enough_eating(void *parm);
 void	killmychilds(pid_t *pid, t_philo *philo);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 #endif

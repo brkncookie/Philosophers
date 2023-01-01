@@ -6,7 +6,7 @@
 /*   By: mnadir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:57:01 by mnadir            #+#    #+#             */
-/*   Updated: 2022/12/26 11:10:20 by mnadir           ###   ########.fr       */
+/*   Updated: 2023/01/01 10:42:50 by mnadir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
@@ -48,3 +48,16 @@ void	mutextroy(t_data *data, pthread_mutex_t *print, pthread_mutex_t *fork)
 	free(fork);
 	free(print);
 }	
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	while (n && (*s1 || *s2))
+	{
+		if (*s1 != *s2)
+			return ((unsigned char)*s1 - (unsigned char)*s2);
+		s1++;
+		s2++;
+		n--;
+	}
+	return (0);
+}

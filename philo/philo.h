@@ -6,7 +6,7 @@
 /*   By: mnadir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 12:32:13 by mnadir            #+#    #+#             */
-/*   Updated: 2022/12/26 10:58:47 by mnadir           ###   ########.fr       */
+/*   Updated: 2023/01/01 12:50:23 by mnadir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PHILO_H
@@ -28,6 +28,7 @@ typedef struct s_data
 	int				m2e;
 	long			ss;
 }	t_data;
+
 typedef struct s_philo
 {
 	pthread_t		philo;
@@ -37,6 +38,7 @@ typedef struct s_philo
 	int				inx;
 	t_data			*data;
 }	t_philo;
+
 int		ft_isspace(int c);
 int		ft_isdigit(int c);
 int		ft_atoi(const char *str);
@@ -50,4 +52,5 @@ void	mutextroy(t_data *data, pthread_mutex_t *print, pthread_mutex_t *fork);
 void	mssleep(long time_ms);
 long	currenttime(void);
 void	locknprint(t_philo *philo, char *str, int dead);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 #endif

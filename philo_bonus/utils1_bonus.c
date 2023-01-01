@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils1.c                                           :+:      :+:    :+:   */
+/*   utils1_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnadir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/26 10:57:01 by mnadir            #+#    #+#             */
-/*   Updated: 2022/12/28 12:21:44 by mnadir           ###   ########.fr       */
+/*   Created: 2023/01/01 12:11:25 by mnadir            #+#    #+#             */
+/*   Updated: 2023/01/01 12:29:48 by mnadir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo_bonus.h"
@@ -46,8 +46,22 @@ void	killmychilds(pid_t *pid, t_philo *philo)
 		kill(pid[idx++], SIGTERM);
 	sem_close(philo->fork);
 	sem_close(philo->print);
+	sem_post(philo->ate);
 	sem_close(philo->ate);
 	sem_unlink("fork");
 	sem_unlink("print");
 	sem_unlink("ate");
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	while (n && (*s1 || *s2))
+	{
+		if (*s1 != *s2)
+			return ((unsigned char)*s1 - (unsigned char)*s2);
+		s1++;
+		s2++;
+		n--;
+	}
+	return (0);
 }
