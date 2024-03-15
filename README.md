@@ -25,5 +25,5 @@ Concurrency is a crucial concept in modern computing, allowing programs to perfo
 ## Resources
 
 - [POSIX Threads Programming](https://www.cs.cmu.edu/afs/cs/academic/class/15492-f07/www/pthreads.html)
-- [Concurrency in C Programming](https://www.geeksforgeeks.org/posix-threads-c/)
+- [Concurrency in C Programming](https://www.geeksforgeeks.org/multithreading-in-c/)
 - [The Dining Philosophers Problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem)
