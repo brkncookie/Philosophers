@@ -17,8 +17,8 @@ Concurrency is a crucial concept in modern computing, allowing programs to perfo
 ## Solutions Implemented In This Project
 
 - **Thread-Based Solution:** Implement a solution using POSIX threads (pthread library) to simulate philosophers dining and avoid deadlocks.
-- **Process-Based Solution:** Explore a solution using processes (fork and exec) to model the dining philosophers problem with separate address spaces.
-- **Resource Management:** Learn how to manage shared resources (such as forks and seats) among multiple threads/processes to prevent conflicts.
+- **Process-Based Solution:** Explore a solution using processes (fork()) to model the dining philosophers problem with separate address spaces.
+- **Resource Management:** Learn how to manage shared resources (such as forks) among multiple threads/processes to prevent conflicts.
 - **Synchronization Techniques:** Apply synchronization techniques such as mutex locks, semaphores, and condition variables to coordinate access to shared resources.
 - **Error Handling:** Handle errors and edge cases related to concurrency, including deadlock detection and resolution.
 
